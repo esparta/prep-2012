@@ -3,8 +3,8 @@
 ## prep-mysql.sh
 ## Developer: Espartaco Palma (esparta@gmail.com)
 ## Date: 2012-07-04
-## License: GPL 
-## Description: This script try to download and pre-process the 
+## License: GPL
+## Description: This script try to download and pre-process the
 ##    database of the Programa de Resultados Electorales Preliminares
 ##    of the Mexico Federal elections.
 ##    Optional: Create directory
