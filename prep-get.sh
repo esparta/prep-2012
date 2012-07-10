@@ -117,12 +117,12 @@ sum=
 for x in sha1sum shasum sha1 ; do
   if type "${x%% *}" >/dev/null 2>/dev/null; then sum=$x; break; fi
 done
-if [ -z "$sum" ]; then 
+if [ -z "$sum" ]; then
   echo >&2 "No se encuentra comando de validación SHA1. Abortando."; exit 2; 
 else
   echo "Validando archivo"
   ## Validate SHA1 Checksum, MUST be the same.
-  sha1=`$sum "$FILE" | awk '{print $1}'`      
+  sha1=`$sum "$FILE" | awk '{print $1}'` 
   if [ "$sha1" = "$SHA1VALIDO" ];then
     #The SHA1 is valid, continue
     echo "Descomprimir y desempacar archivo"
@@ -138,5 +138,5 @@ else
     echo "Probablemente el archvo descargado esta corrupto"
     echo "por favor, borrelo y reinicie este proceso"
     exit 1
-  fi  
+  fi
 fi
