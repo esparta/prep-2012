@@ -114,7 +114,7 @@ fi ## Exist the database file?
 trap error_exit ERR 
 
 sum=
-for x in sha1sumx shasum sha1 ; do
+for x in sha1sum shasum sha1 ; do
   if type "${x%% *}" >/dev/null 2>/dev/null; then sum=$x; break; fi
 done
 if [ -z "$sum" ]; then 
