@@ -11,7 +11,22 @@ manejadores de datos mas populares (tendran sus razones).
 
 ### Formatos soportados
 Se seguiran adjuntando mas formatos, actualmente cuento con el siguiente:
-* MySQL (probado con version 5.1.x)
+* MySQL (probado con version 5.x.x)
+
+## Instrucciones
+-- Obtención de archivos
+bash prep-get.sh  [directorio] 
+
+[directorio] es un parámetro opcional, se creará (si tiene permisos) el directorio
+especificado 
+
+$ pwd 
+~ /home/esparta
+$ bash prep-get.sh archivos
+~ creará directorio /home/esparta/archivos
+
+-- Procesamiento para importar a mysql
+$ bash prep-mysql.sh 
 
 ## Cambios y modificaciones
 Los scripts que aqui se encuentran estaban originalmente pensados para mis

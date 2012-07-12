@@ -46,11 +46,12 @@ SERVERS=(
 
 
 function error_exit {
-
    local err=$?
-   echo "error# $err on line $BASH_LINENO: $BASH_COMMAND"
+   #echo "error# $err on line $BASH_LINENO: $BASH_COMMAND"
+   echo "${BASH_SOURCE[0]}: ${1:-"Unknown Error"}" 1>&2
    exit $err
 }
+
 
 ## Working directory
 ## Thanks to stackoverflow
@@ -111,9 +112,10 @@ else
 fi ## Exist the database file?
 
 
-trap error_exit ERR 
+trap error_exit SIGHUP SIGINT SIGTERM
 
 sum=
+## Search for sha1 command
 for x in sha1sum shasum sha1 ; do
   if type "${x%% *}" >/dev/null 2>/dev/null; then sum=$x; break; fi
 done
@@ -126,13 +128,22 @@ else
   if [ "$sha1" = "$SHA1VALIDO" ];then
     #The SHA1 is valid, continue
     echo "Descomprimir y desempacar archivo"
-    if [ $CREATEDIR = 1  ]; then
-      WDIR=$(echo $DIR/${FILE%.tar.gz})
-      mkdir -p $WDIR
+    ## if this script has a parameter "directory"
+    if [ -n "$1" ]; then
+      WDIR=$(echo "$DIR/$1")
+      ## TODO: Detect if parameter is a relative or absolute path
+      ##       to use the current directory or not.
+      if ! mkdir -p "$WDIR" >/dev/null 2>&1 ; then
+         echo >&2 "Error al crear directorio de trabajo. Revise permisos."
+         exit 1
+      fi
     else
       WDIR=$DIR
     fi
-    tar xvfz $FILE -C $WDIR
+    if ! tar xvfz "$FILE" -C "$WDIR" ; then
+      echo >&2 "Error al desempacar el archivo descargado"
+      exit 1
+    fi
   else
     echo "El checksum de el archivo de BBDD no coincide con el esperado"
     echo "Probablemente el archvo descargado esta corrupto"
