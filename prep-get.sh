@@ -2,7 +2,7 @@
 ## prep-get.sh
 ## Developer: Espartaco Palma (esparta@gmail.com)
 ## Date: 2012-07-04
-## LastMod: 2012-07-09
+## LastMod: 2013-05-28
 ## License: GPL
 ## Description: This script try to download and the databases
 ##    of the Programa de Resultados Electorales Preliminares
@@ -69,7 +69,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 ## Working directory
 
-echo "Script de automatizacion en de descarga PREP 2012"
+echo "Script de automatizacion en descarga PREP 2012"
 
 
 if [ ! -f "$DIR/$FILE" ]; then
@@ -127,6 +127,7 @@ else
   sha1=`$sum "$FILE" | awk '{print $1}'` 
   if [ "$sha1" = "$SHA1VALIDO" ];then
     #The SHA1 is valid, continue
+    echo "Archivo válido!"
     echo "Descomprimir y desempacar archivo"
     ## if this script has a parameter "directory"
     if [ -n "$1" ]; then

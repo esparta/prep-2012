@@ -3,6 +3,7 @@
 ## prep-mysql.sh
 ## Developer: Espartaco Palma (esparta@gmail.com)
 ## Date: 2012-07-04
+## LastMod: 2013-05-28
 ## License: GPL
 ## Description: This script pre-process the
 ##    database of the Programa de Resultados Electorales Preliminares
@@ -58,7 +59,7 @@ trap error_exit SIGHUP SIGINT SIGTERM
 ## We are going to pre-process the three databases
 ## removing some strings that should be nulls or numbers
 ## these are "Ilegible", "Sin dato", "null" or spaces
-echo "Script de automatización de archivos PREP 2012 en MySQL"
+echo "Script de importación de archivos PREP 2012 en MySQL/MariaDB"
 if [ -d "$DIR$sd" ] ; then ## exist the source directory?
   echo "source directory: $DIR$sd"
 
@@ -87,8 +88,7 @@ if [ -d "$DIR$sd" ] ; then ## exist the source directory?
                exit 1        
       fi
 
-      echo "Procediendo a importar archivo presidente.txt"
-      echo "Introduzca contraseña de servidor MySQL..."
+      echo "Procediendo a importar archivo $DIR$sd/$f"
       mysqlimport --local  --fields-terminated-by="|" --ignore-lines=6 $DATABASE -u $USER -h $HOST -p "$DIR$sd/$f"
     else
       echo "No es posible localizar el archivo $DIR$sd/$f"
